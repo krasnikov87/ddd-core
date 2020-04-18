@@ -49,4 +49,10 @@ interface RepositoryInterface
      * @return $this
      */
     public function sort(Sorting $sort): self;
+
+    /**
+     * @param array $models
+     * @return $this
+     */
+    public function with(array $models): self;
 }
