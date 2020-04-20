@@ -154,7 +154,6 @@ abstract class AbstractPostgresRepository
     }
 
     /**
-     * @param Model $model
      * @param array $includes
      */
     private function checkAllowed(array $includes)
