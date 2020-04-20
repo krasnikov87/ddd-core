@@ -9,6 +9,7 @@
     "repository",
     "core"
   ],
+  "license": "MIT",
   "authors": [
     {
       "name": "Krasnikov Alexandr",

@@ -116,7 +116,7 @@ abstract class AbstractPostgresRepository
         $this->makeBuilder();
 
         foreach ($sort->getSort() as $sorting) {
-            $this->builder->orderBy($sorting['field'], $sorting['dir']);
+            $this->builder->orderBy(strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $sorting['field'])), $sorting['dir']);
         }
 
         return $this;
