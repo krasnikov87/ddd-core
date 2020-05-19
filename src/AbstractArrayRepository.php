@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Krasnikov\DDDCore;
 
-use Krasnikov\DDDCore\Pagination;
-use Krasnikov\DDDCore\RepositoryInterface;
-use Krasnikov\DDDCore\Sorting;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator as LengthAwarePaginatorInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -106,6 +103,21 @@ abstract class AbstractArrayRepository
      * @return $this
      */
     public function sort(Sorting $sort): RepositoryInterface
+    {
+        $result = $this->seed;
+        if ($this->result->count()) {
+            $result = $this->result;
+        }
+        $this->result = $result;
+
+        return $this;
+    }
+
+    /**
+     * @param array $models
+     * @return $this|RepositoryInterface
+     */
+    public function with(array $models): RepositoryInterface
     {
         $result = $this->seed;
         if ($this->result->count()) {

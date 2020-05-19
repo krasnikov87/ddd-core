@@ -22,4 +22,12 @@ class BaseModel extends Model
      * @var string
      */
     protected $keyType = 'string';
+
+    /**
+     * @return array
+     */
+    public function allowedReferences(): array
+    {
+        return property_exists($this, 'allowedReferences') ? $this->allowedReferences : [];
+    }
 }
