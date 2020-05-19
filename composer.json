@@ -19,8 +19,8 @@
   "require": {
     "php": "^7.4",
     "ext-json": "*",
-    "ramsey/uuid": "^4.0",
-    "illuminate/http": "7.6.2"
+    "ramsey/uuid": "^4.*",
+    "illuminate/http": "7.*"
   },
   "autoload": {
     "psr-4": {
