@@ -21,7 +21,7 @@ class Sorting
         self::SORT_DESC,
     ];
 
-    public const DEFAULT_SORT_FIELD = 'created_at';
+    public const DEFAULT_SORT_FIELD = 'createdAt';
 
     public const DESC_SORT_SYMBOL = '-';
 
@@ -55,8 +55,10 @@ class Sorting
         if (!$sort) {
             return new Sorting(
                 [
-                    'field' => self::DEFAULT_SORT_FIELD,
-                    'dir' => self::SORT_DESC
+                    [
+                        'field' => self::DEFAULT_SORT_FIELD,
+                        'dir' => self::SORT_DESC
+                    ]
                 ],
                 $availableFields
             );
@@ -102,7 +104,7 @@ class Sorting
                 'fields' => $fields
             ],
             [
-                'fields.*.field' => 'string|in:' . implode(',', $availableFields)
+                'fields.*.field' => 'string|in:' . $this->snakeToCamelCase(implode(',', $availableFields))
             ]
         );
 
@@ -119,5 +121,14 @@ class Sorting
     protected function getValidationFactory()
     {
         return app('validator');
+    }
+
+    /**
+     * @param $key
+     * @return string
+     */
+    private function snakeToCamelCase($key): string
+    {
+        return lcfirst(str_replace('_', "", ucwords($key, "/_")));
     }
 }

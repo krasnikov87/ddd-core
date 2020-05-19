@@ -1,23 +1,30 @@
 {
-    "name": "krasnikov/ddd-core",
-    "type": "library",
-    "description": "",
-    "keywords": ["laravel", "lumen", "eloquent", "ddd", "repository", "core"],
-    "authors": [
-        {
-            "name": "Krasnikov Alexandr",
-            "email": "krasnikovrs@gmail.com"
-        }
-    ],
-    "require": {
-        "php": "^7.4.*",
-        "ext-json": "*",
-        "ramsey/uuid": "^3.9",
-        "illuminate/http": "7.6.2"
-    },
-    "autoload": {
-        "psr-4": {
-            "Krasnikov\\DDDCore\\": "src/"
-        }
+  "name": "krasnikov/ddd-core",
+  "description": "",
+  "keywords": [
+    "laravel",
+    "lumen",
+    "eloquent",
+    "ddd",
+    "repository",
+    "core"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Krasnikov Alexandr",
+      "email": "krasnikovrs@gmail.com"
     }
+  ],
+  "require": {
+    "php": "^7.4",
+    "ext-json": "*",
+    "ramsey/uuid": "4.*",
+    "illuminate/http": "7.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Krasnikov\\DDDCore\\": "src/"
+    }
+  }
 }

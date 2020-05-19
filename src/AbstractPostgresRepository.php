@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\ValidationException;
 
 /**
  * Class AbstractUserRepository
@@ -115,7 +116,7 @@ abstract class AbstractPostgresRepository
         $this->makeBuilder();
 
         foreach ($sort->getSort() as $sorting) {
-            $this->builder->orderBy($sorting['field'], $sorting['dir']);
+            $this->builder->orderBy(strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $sorting['field'])), $sorting['dir']);
         }
 
         return $this;
@@ -137,5 +138,41 @@ abstract class AbstractPostgresRepository
     protected function clearBuilder(): void
     {
         $this->builder = null;
+    }
+
+    /**
+     * @param array $models
+     * @return $this|RepositoryInterface
+     */
+    public function with(array $models): RepositoryInterface
+    {
+        $this->makeBuilder();
+        $this->checkAllowed($models);
+        $this->builder->with($models);
+
+        return $this;
+    }
+
+    /**
+     * @param array $includes
+     */
+    private function checkAllowed(array $includes)
+    {
+        $diff = array_diff($includes, $this->model->allowedReferences());
+        if (count($diff)) {
+            throw ValidationException::withMessages(
+                [
+                    'includes' => [
+                        __(
+                            'validation.in_array',
+                            [
+                                'attribute' => 'includes',
+                                'other' => implode(', ', $this->model->allowedReferences())
+                            ]
+                        )
+                    ],
+                ]
+            );
+        }
     }
 }
